@@ -354,13 +354,13 @@ def create_submit_request(apiurl, source_project, source_package, rev, target_pr
     try:
         fin = core.http_POST(url, data=xml)
     except HTTPError as e:
-        raise AutoSubmitException('Cannot submit %s to %s: %s' % (source_project, source_package, target_project, target_package, e))
+        raise AutoSubmitException('Cannot submit %s/%s to %s/%s: %s' % (source_project, source_package, target_project, target_package, e))
 
     try:
         node = ET.parse(fin).getroot()
     except SyntaxError as e:
         fin.close()
-        raise AutoSubmitException('Cannot parse result of submission of %s to %s: %s' % (source_project, source_package, target_project, target_package, e))
+        raise AutoSubmitException('Cannot parse result of submission of %s/%s to %s/%s: %s' % (source_project, source_package, target_project, target_package, e))
 
     fin.close()
 
